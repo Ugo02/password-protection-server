@@ -1,2 +1,11 @@
-Flask==2.0.3
-requests==2.26.0
+cffi==1.17.1
+cryptography==43.0.1
+packaging==24.1
+pycparser==2.22
+Flask==2.2.3
+Werkzeug==2.2.3
+bcrypt==4.0.1
+Flask-Cors==3.0.10
+requests
+
+
