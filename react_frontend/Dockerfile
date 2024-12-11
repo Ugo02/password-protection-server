@@ -13,8 +13,12 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Expose port 3000
-EXPOSE 3000
+# Set environment variables so the app runs on port 3001 and listens on all interfaces
+ENV PORT=3001
+ENV HOST=0.0.0.0
+
+# Expose port 3001
+EXPOSE 3001
 
 # Start the React application
 CMD ["npm", "start"]

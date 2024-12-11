@@ -1,18 +1,20 @@
-# Use an official Python runtime as a base image
 FROM python:3.8-slim
 
-# Set the working directory
-WORKDIR /app
+# Install dependencies for building Tink
+RUN apt-get update && apt-get install -y curl gnupg default-jdk ca-certificates unzip && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file and install dependencies
+# Install Bazelisk for arm64
+RUN curl -L -o /usr/local/bin/bazel https://github.com/bazelbuild/bazelisk/releases/download/v1.13.2/bazelisk-linux-arm64
+RUN chmod +x /usr/local/bin/bazel
+
+WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
+# Copy the application code and the key files
 COPY app.py ./
+COPY master_key.json ./
+COPY encrypted_keyset.json ./
 
-# Expose port 5001
 EXPOSE 5001
-
-# Run the application
 CMD ["python", "app.py"]
